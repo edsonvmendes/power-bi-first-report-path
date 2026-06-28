@@ -2,6 +2,8 @@
 
 A simple, free learning path to help beginners build their first Power BI report.
 
+Live site: https://power-bi-first-report-path.vercel.app
+
 This project is not a course platform, does not sell content, and does not require registration. It organizes free public YouTube videos into a practical sequence for people starting from zero.
 
 ## What is included
