@@ -244,8 +244,7 @@
     }
 
     .project,
-    .checklist,
-    .maintenance {
+    .checklist {
       margin-top: 20px;
       background: var(--surface);
       border: 1px solid var(--border);
@@ -254,8 +253,7 @@
     }
 
     .project h2,
-    .checklist h2,
-    .maintenance h2 {
+    .checklist h2 {
       margin: 0 0 10px;
       font-size: 1.25rem;
     }
@@ -267,8 +265,7 @@
     }
 
     .checklist ul,
-    .project ul,
-    .maintenance ul {
+    .project ul {
       margin: 8px 0 0;
       padding-left: 20px;
     }
@@ -374,11 +371,6 @@
     <section class="checklist">
       <h2 id="checklist-title"></h2>
       <ul id="final-checklist"></ul>
-    </section>
-
-    <section class="maintenance">
-      <h2>Maintenance</h2>
-      <p>To check video links, run <code>.\tools\check-video-links.ps1</code> from this folder. It creates <code>docs/link-health-report.html</code> and <code>docs/link-health-report.csv</code>.</p>
     </section>
 
     <footer>
@@ -702,4 +694,3 @@
   </script>
 </body>
 </html>
-
