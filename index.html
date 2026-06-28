@@ -1,0 +1,705 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Power BI - First Report Path</title>
+  <style>
+    :root {
+      --bg: #f7f8fb;
+      --surface: #ffffff;
+      --surface-soft: #eef3f8;
+      --text: #172033;
+      --muted: #5b6577;
+      --border: #d9e1ec;
+      --accent: #0f766e;
+      --accent-strong: #0b5d57;
+      --accent-soft: #dff5f1;
+      --warning: #8a5a00;
+      --shadow: 0 18px 48px rgba(23, 32, 51, 0.08);
+      --radius: 8px;
+      font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    a {
+      color: var(--accent-strong);
+      font-weight: 650;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 28px 20px 56px;
+    }
+
+    header {
+      padding: 34px 0 26px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 24px;
+      align-items: end;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 4.1rem);
+      line-height: 1.02;
+      letter-spacing: 0;
+      color: var(--text);
+    }
+
+    .subtitle {
+      margin: 16px 0 0;
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+
+    .free-note {
+      max-width: 320px;
+      background: var(--accent-soft);
+      border: 1px solid #b7e6dc;
+      border-radius: var(--radius);
+      color: #17433f;
+      padding: 14px 16px;
+      font-size: 0.94rem;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      margin: 18px 0 22px;
+    }
+
+    .tabs {
+      display: inline-flex;
+      gap: 4px;
+      padding: 4px;
+      background: var(--surface-soft);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+
+    .tab {
+      border: 0;
+      border-radius: 6px;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font: inherit;
+      font-size: 0.95rem;
+      font-weight: 700;
+      padding: 10px 14px;
+      min-width: 108px;
+    }
+
+    .tab[aria-selected="true"] {
+      background: var(--surface);
+      color: var(--accent-strong);
+      box-shadow: 0 1px 4px rgba(23, 32, 51, 0.12);
+    }
+
+    .download {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: var(--radius);
+      border: 1px solid var(--accent);
+      background: var(--accent);
+      color: white;
+      padding: 10px 14px;
+      font-size: 0.95rem;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .download:hover {
+      background: var(--accent-strong);
+      text-decoration: none;
+    }
+
+    .intro {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px;
+      margin-bottom: 18px;
+    }
+
+    .intro p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .steps {
+      display: grid;
+      gap: 14px;
+    }
+
+    .step {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px;
+      display: grid;
+      grid-template-columns: 72px minmax(0, 1fr);
+      gap: 18px;
+    }
+
+    .step-number {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--accent-soft);
+      color: var(--accent-strong);
+      display: grid;
+      place-items: center;
+      font-size: 1.25rem;
+      font-weight: 850;
+    }
+
+    .step h2 {
+      margin: 0 0 10px;
+      font-size: 1.24rem;
+      letter-spacing: 0;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .meta span {
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 4px 9px;
+      background: #fbfcfe;
+    }
+
+    .step-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr) minmax(0, 1fr);
+      gap: 12px;
+    }
+
+    .panel {
+      border-left: 3px solid var(--border);
+      padding-left: 12px;
+      min-width: 0;
+    }
+
+    .panel h3 {
+      margin: 0 0 6px;
+      font-size: 0.82rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .panel p,
+    .panel ul {
+      margin: 0;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+
+    .panel ul {
+      padding-left: 18px;
+    }
+
+    .video-title {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 1rem;
+    }
+
+    .small {
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .project,
+    .checklist,
+    .maintenance {
+      margin-top: 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+    }
+
+    .project h2,
+    .checklist h2,
+    .maintenance h2 {
+      margin: 0 0 10px;
+      font-size: 1.25rem;
+    }
+
+    .columns {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .checklist ul,
+    .project ul,
+    .maintenance ul {
+      margin: 8px 0 0;
+      padding-left: 20px;
+    }
+
+    code {
+      background: #eef3f8;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 1px 5px;
+      font-family: "Cascadia Code", Consolas, monospace;
+      font-size: 0.9em;
+    }
+
+    footer {
+      color: var(--muted);
+      font-size: 0.92rem;
+      padding: 28px 0 0;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    @media (max-width: 820px) {
+      header,
+      .step-grid,
+      .columns {
+        grid-template-columns: 1fr;
+      }
+
+      .free-note {
+        max-width: none;
+      }
+
+      .toolbar {
+        align-items: stretch;
+      }
+
+      .tabs,
+      .download {
+        width: 100%;
+      }
+
+      .tab {
+        flex: 1;
+        min-width: 0;
+        padding-inline: 8px;
+      }
+
+      .step {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <div>
+        <h1>Power BI - First Report Path</h1>
+        <p class="subtitle">A simple learning path to build your first Power BI report.</p>
+      </div>
+      <aside class="free-note">Free, non-commercial, and based on public YouTube videos. No login, no paid content, no course platform.</aside>
+    </header>
+
+    <section class="toolbar" aria-label="Language and dataset controls">
+      <div class="tabs" role="tablist" aria-label="Choose language">
+        <button class="tab" id="tab-pt" role="tab" aria-controls="panel-pt" aria-selected="true" data-lang="pt">Português</button>
+        <button class="tab" id="tab-es" role="tab" aria-controls="panel-es" aria-selected="false" data-lang="es">Español</button>
+        <button class="tab" id="tab-en" role="tab" aria-controls="panel-en" aria-selected="false" data-lang="en">English</button>
+      </div>
+      <a class="download" href="data/Training_PowerBI_First_Report.xlsx" download>Download dataset</a>
+    </section>
+
+    <section class="intro" id="intro">
+      <p id="intro-text"></p>
+    </section>
+
+    <section id="panel-pt" role="tabpanel" aria-labelledby="tab-pt">
+      <div class="steps" data-steps="pt"></div>
+    </section>
+    <section id="panel-es" role="tabpanel" aria-labelledby="tab-es" hidden>
+      <div class="steps" data-steps="es"></div>
+    </section>
+    <section id="panel-en" role="tabpanel" aria-labelledby="tab-en" hidden>
+      <div class="steps" data-steps="en"></div>
+    </section>
+
+    <section class="project">
+      <h2 id="project-title"></h2>
+      <div class="columns">
+        <div>
+          <p id="project-copy"></p>
+          <ul id="project-list"></ul>
+        </div>
+        <div>
+          <p><strong>Report name:</strong> <code>My First Power BI Report</code></p>
+          <p class="small" id="publish-note"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="checklist">
+      <h2 id="checklist-title"></h2>
+      <ul id="final-checklist"></ul>
+    </section>
+
+    <section class="maintenance">
+      <h2>Maintenance</h2>
+      <p>To check video links, run <code>.\tools\check-video-links.ps1</code> from this folder. It creates <code>docs/link-health-report.html</code> and <code>docs/link-health-report.csv</code>.</p>
+    </section>
+
+    <footer>
+      Built as a simple guide for beginners. Videos belong to their original creators and may change over time.
+    </footer>
+  </main>
+
+  <script>
+    const copy = {
+      pt: {
+        intro: "Este é um caminho simples de aprendizado para ajudar iniciantes a construir seu primeiro relatório em Power BI usando vídeos públicos gratuitos e um dataset prático.",
+        video: "Vídeo recomendado",
+        exercise: "Exercício",
+        completion: "Critério de conclusão",
+        projectTitle: "Mini projeto final",
+        projectCopy: "Ao final, crie um relatório simples no Power BI com:",
+        publishNote: "Publique em um workspace de teste se você tiver acesso ao Power BI Service.",
+        checklistTitle: "Checklist final",
+        projectItems: [
+          "1 página executiva e 1 página de detalhe",
+          "Filtros por ano, planta e produto",
+          "Pelo menos 5 medidas DAX simples",
+          "Relacionamentos corretos entre as tabelas",
+          "Dataset fictício deste guia"
+        ],
+        finalChecklist: [
+          "Importar um arquivo Excel",
+          "Limpar dados no Power Query",
+          "Criar relacionamentos simples",
+          "Criar medidas DAX básicas",
+          "Criar cartões, gráficos e tabelas",
+          "Usar segmentações e filtros",
+          "Organizar uma página clara",
+          "Publicar no Power BI Service",
+          "Explicar o relatório em poucos minutos"
+        ]
+      },
+      es: {
+        intro: "Este es un camino simple de aprendizaje para ayudar a principiantes a construir su primer informe en Power BI usando videos públicos gratuitos y un dataset práctico.",
+        video: "Video recomendado",
+        exercise: "Ejercicio",
+        completion: "Criterio de finalización",
+        projectTitle: "Mini proyecto final",
+        projectCopy: "Al final, crea un informe simple en Power BI con:",
+        publishNote: "Publica en un workspace de prueba si tienes acceso a Power BI Service.",
+        checklistTitle: "Checklist final",
+        projectItems: [
+          "1 página ejecutiva y 1 página de detalle",
+          "Filtros por año, planta y producto",
+          "Al menos 5 medidas DAX simples",
+          "Relaciones correctas entre las tablas",
+          "Dataset ficticio de esta guía"
+        ],
+        finalChecklist: [
+          "Importar un archivo Excel",
+          "Limpiar datos en Power Query",
+          "Crear relaciones simples",
+          "Crear medidas DAX básicas",
+          "Crear tarjetas, gráficos y tablas",
+          "Usar segmentadores y filtros",
+          "Organizar una página clara",
+          "Publicar en Power BI Service",
+          "Explicar el informe en pocos minutos"
+        ]
+      },
+      en: {
+        intro: "This is a simple learning path to help beginners build their first Power BI report using free public videos and a practical dataset.",
+        video: "Recommended video",
+        exercise: "Exercise",
+        completion: "Completion criteria",
+        projectTitle: "Final mini project",
+        projectCopy: "At the end, create a simple Power BI report with:",
+        publishNote: "Publish to a test workspace if Power BI Service access is available.",
+        checklistTitle: "Final checklist",
+        projectItems: [
+          "1 executive page and 1 detail page",
+          "Filters by year, plant, and product",
+          "At least 5 simple DAX measures",
+          "Correct table relationships",
+          "The fictitious dataset from this guide"
+        ],
+        finalChecklist: [
+          "Import an Excel file",
+          "Clean data in Power Query",
+          "Create simple relationships",
+          "Create basic DAX measures",
+          "Create cards, charts, and tables",
+          "Use slicers and filters",
+          "Organize a clear report page",
+          "Publish to Power BI Service",
+          "Explain the report in a few minutes"
+        ]
+      }
+    };
+
+    const steps = [
+      {
+        step: 1,
+        topic: "What is Power BI",
+        exercise: {
+          pt: "Abra o Power BI Desktop, identifique as principais áreas da interface e entenda a diferença entre Desktop e Service.",
+          es: "Abre Power BI Desktop, identifica las áreas principales de la interfaz y entiende la diferencia entre Desktop y Service.",
+          en: "Open Power BI Desktop, identify the main interface areas, and understand the difference between Desktop and Service."
+        },
+        completion: {
+          pt: "Você consegue explicar para que serve o Power BI Desktop.",
+          es: "Puedes explicar para qué sirve Power BI Desktop.",
+          en: "You can explain what Power BI Desktop is used for."
+        },
+        videos: {
+          pt: ["Curso Básico Power BI - Aula 1 - Introdução ao Power BI", "Hashtag Treinamentos", "https://www.youtube.com/watch?v=37oxzq2pSbI", "0:00"],
+          es: ["Curso de Power BI desde Cero (Completo)", "to_validate", "https://www.youtube.com/watch?v=vufMFnWpINo", "0:00"],
+          en: ["Power BI Beginner's Tutorial (2025)", "Guy in a Cube", "https://www.youtube.com/watch?v=MikekdopYhE", "0:00"]
+        }
+      },
+      {
+        step: 2,
+        topic: "Import data",
+        exercise: {
+          pt: "Importe o arquivo Training_PowerBI_First_Report.xlsx e carregue as principais tabelas.",
+          es: "Importa el archivo Training_PowerBI_First_Report.xlsx y carga las tablas principales.",
+          en: "Import Training_PowerBI_First_Report.xlsx and load the main tables."
+        },
+        completion: {
+          pt: "As tabelas aparecem corretamente no Power BI Desktop.",
+          es: "Las tablas aparecen correctamente en Power BI Desktop.",
+          en: "The tables appear correctly in Power BI Desktop."
+        },
+        videos: {
+          pt: ["Curso Básico de Power BI 2026", "Hashtag Treinamentos", "https://www.youtube.com/watch?v=7cUrsltJbEI", "to_validate"],
+          es: ["Curso de Microsoft Power BI desde cero | IMPORTAR DATOS", "to_validate", "https://www.youtube.com/watch?v=NcA8o79kZUI", "0:00"],
+          en: ["Power BI Tutorial for Beginners (2025)", "Kevin Stratvert", "https://www.youtube.com/watch?v=VaOhNqNtGGE", "0:00"]
+        }
+      },
+      {
+        step: 3,
+        topic: "Power Query basics",
+        exercise: {
+          pt: "Abra o Power Query, corrija tipos de dados, remova colunas desnecessárias, renomeie colunas e aplique as alterações.",
+          es: "Abre Power Query, corrige tipos de datos, elimina columnas innecesarias, renombra columnas y aplica los cambios.",
+          en: "Open Power Query, correct data types, remove unnecessary columns, rename columns, and apply changes."
+        },
+        completion: {
+          pt: "Você consegue preparar um dataset simples antes de criar visuais.",
+          es: "Puedes preparar un dataset simple antes de crear visuales.",
+          en: "You can prepare a simple dataset before creating visuals."
+        },
+        videos: {
+          pt: ["Curso Básico Power BI - Aula 2 - Editando a Base com Power Query", "Hashtag Treinamentos", "https://www.youtube.com/watch?v=vjsfAjfLimM", "0:00"],
+          es: ["Power Query desde Cero: Tutorial Completo para Principiantes", "to_validate", "https://www.youtube.com/watch?v=f3nEZo4b-Yg", "0:00"],
+          en: ["Power Query in 20 Minutes - How it Works", "to_validate", "https://www.youtube.com/watch?v=zgYZ0c0xvTk", "0:00"]
+        }
+      },
+      {
+        step: 4,
+        topic: "Relationships",
+        exercise: {
+          pt: "Conecte Fact_Production com Dim_Date, Dim_Plant e Dim_Product.",
+          es: "Conecta Fact_Production con Dim_Date, Dim_Plant y Dim_Product.",
+          en: "Connect Fact_Production to Dim_Date, Dim_Plant, and Dim_Product."
+        },
+        completion: {
+          pt: "Filtros de data, planta e produto afetam os visuais corretamente.",
+          es: "Los filtros de fecha, planta y producto afectan los visuales correctamente.",
+          en: "Filters for date, plant, and product affect the visuals correctly."
+        },
+        videos: {
+          pt: ["Relacionamentos no Power BI em 15 minutos", "Hashtag Treinamentos", "https://www.youtube.com/watch?v=LRhc-zTkCLY", "0:00"],
+          es: ["Cómo crear relaciones Power BI - Curso de Power BI", "to_validate", "https://www.youtube.com/watch?v=CKg4P38oneY", "0:00"],
+          en: ["Learn Data Modelling & Star Schema for Power BI in 20 minutes", "Chandoo", "https://www.youtube.com/watch?v=4ePNrdxWtY0", "2:18"]
+        }
+      },
+      {
+        step: 5,
+        topic: "Basic DAX",
+        exercise: {
+          pt: "Crie medidas simples: Total Produced, Total Rejected, Rejection Rate, Total Revenue e Total Cost.",
+          es: "Crea medidas simples: Total Produced, Total Rejected, Rejection Rate, Total Revenue y Total Cost.",
+          en: "Create simple measures: Total Produced, Total Rejected, Rejection Rate, Total Revenue, and Total Cost."
+        },
+        completion: {
+          pt: "Você consegue criar pelo menos 3 medidas simples e usá-las em visuais.",
+          es: "Puedes crear al menos 3 medidas simples y usarlas en visuales.",
+          en: "You can create at least 3 simple measures and use them in visuals."
+        },
+        videos: {
+          pt: ["Curso Básico de Fórmulas DAX - Aula 2 - Criando Medidas no Power BI", "Hashtag Treinamentos", "https://www.youtube.com/watch?v=naCjJ2OWDBQ", "0:00"],
+          es: ["Curso de Cálculos DAX en Power BI desde CERO (Para principiantes)", "to_validate", "https://www.youtube.com/watch?v=k7sGvy6Jf7s", "0:00"],
+          en: ["Master These 10 DAX Functions to Level Up Your Power BI Skills (2025)", "to_validate", "https://www.youtube.com/watch?v=K-qhbO9mLFY", "0:00"]
+        }
+      },
+      {
+        step: 6,
+        topic: "Basic visuals",
+        exercise: {
+          pt: "Crie uma página com 3 cartões, 1 gráfico de barras, 1 gráfico de linha, 1 tabela ou matriz e 2 segmentações.",
+          es: "Crea una página con 3 tarjetas, 1 gráfico de barras, 1 gráfico de líneas, 1 tabla o matriz y 2 segmentadores.",
+          en: "Create one page with 3 cards, 1 bar chart, 1 line chart, 1 table or matrix, and 2 slicers."
+        },
+        completion: {
+          pt: "A página apresenta indicadores básicos de forma clara.",
+          es: "La página presenta indicadores básicos de forma clara.",
+          en: "The report page presents basic indicators clearly."
+        },
+        videos: {
+          pt: ["Como Criar um Dashboard em 15 Minutos - Power BI", "Hashtag Treinamentos", "https://www.youtube.com/watch?v=cLwA7_hW8dA", "0:00"],
+          es: ["POWER BI 2024 para Principiantes: Guía para Crear Informes desde 0", "to_validate", "https://www.youtube.com/watch?v=dw5R8y1XkYs", "0:00"],
+          en: ["Power BI Tutorial For Beginners | Create Your First Dashboard Now", "Xelplus (Leila Gharani)", "https://www.youtube.com/watch?v=c7LrqSxjJQQ", "0:00"]
+        }
+      },
+      {
+        step: 7,
+        topic: "Simple layout",
+        exercise: {
+          pt: "Melhore a página: adicione título claro, alinhe visuais, organize filtros, padronize nomes e evite excesso de visuais.",
+          es: "Mejora la página: agrega un título claro, alinea visuales, organiza filtros, estandariza nombres y evita demasiados visuales.",
+          en: "Improve the page: add a clear title, align visuals, organize filters, standardize names, and avoid too many visuals."
+        },
+        completion: {
+          pt: "A página está limpa, legível e fácil de entender.",
+          es: "La página está limpia, legible y fácil de entender.",
+          en: "The page is clean, readable, and easy to understand."
+        },
+        videos: {
+          pt: ["Crie Seu Primeiro Dashboard no Power BI (Passo a Passo para Iniciantes) 2026", "to_validate", "https://www.youtube.com/watch?v=djYLACiDVcg", "0:00"],
+          es: ["Crea un Dashboard Power BI Profesional en 2 Horas", "to_validate", "https://www.youtube.com/watch?v=YaiS6eWCFQQ", "to_validate"],
+          en: ["VISUAL DESIGN to Make ANY Power BI Report Look AMAZING", "to_validate", "https://www.youtube.com/watch?v=ly5KOgH3lUw", "0:00"]
+        }
+      },
+      {
+        step: 8,
+        topic: "Publish",
+        exercise: {
+          pt: "Publique o arquivo em um workspace de teste, identifique o relatório publicado e o modelo semântico.",
+          es: "Publica el archivo en un workspace de prueba, identifica el informe publicado y el modelo semántico.",
+          en: "Publish the file to a test workspace, then identify the published report and semantic model."
+        },
+        completion: {
+          pt: "Você entende onde ficam o relatório e o modelo semântico após a publicação.",
+          es: "Entiendes dónde están el informe y el modelo semántico después de publicar.",
+          en: "You understand where the report and semantic model are after publishing."
+        },
+        videos: {
+          pt: ["Como Compartilhar Relatório Power BI para Fora da Empresa", "Hashtag Treinamentos", "https://www.youtube.com/watch?v=eV7asHYOrHE", "0:00"],
+          es: ["Power BI: Roles, Licencias y Publicación paso a paso", "to_validate", "https://www.youtube.com/watch?v=qW-HKy02vmY", "0:00"],
+          en: ["How to Publish Report to Power BI Service", "to_validate", "https://www.youtube.com/watch?v=_3YAB6dNQ18", "0:00"]
+        }
+      }
+    ];
+
+    function videoHref(url, timestamp) {
+      if (!timestamp || timestamp === "to_validate" || timestamp === "0:00") return url;
+      const parts = timestamp.split(":").map(Number);
+      const seconds = parts.length === 2 ? parts[0] * 60 + parts[1] : 0;
+      return seconds ? `${url}&t=${seconds}s` : url;
+    }
+
+    function renderSteps(lang) {
+      const container = document.querySelector(`[data-steps="${lang}"]`);
+      const labels = copy[lang];
+      container.innerHTML = steps.map((item) => {
+        const video = item.videos[lang];
+        const timestamp = video[3] && video[3] !== "to_validate" ? `Start: ${video[3]}` : "Start: to validate";
+        const channel = video[1] && video[1] !== "to_validate" ? video[1] : "Channel: to validate";
+        return `
+          <article class="step">
+            <div class="step-number">${item.step}</div>
+            <div>
+              <h2>${item.topic}</h2>
+              <div class="meta"><span>${channel}</span><span>${timestamp}</span></div>
+              <div class="step-grid">
+                <div class="panel">
+                  <h3>${labels.video}</h3>
+                  <a class="video-title" href="${videoHref(video[2], video[3])}" target="_blank" rel="noopener">${video[0]}</a>
+                  <p class="small">${video[2]}</p>
+                </div>
+                <div class="panel">
+                  <h3>${labels.exercise}</h3>
+                  <p>${item.exercise[lang]}</p>
+                </div>
+                <div class="panel">
+                  <h3>${labels.completion}</h3>
+                  <p>${item.completion[lang]}</p>
+                </div>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    function renderShared(lang) {
+      const labels = copy[lang];
+      document.documentElement.lang = lang;
+      document.getElementById("intro-text").textContent = labels.intro;
+      document.getElementById("project-title").textContent = labels.projectTitle;
+      document.getElementById("project-copy").textContent = labels.projectCopy;
+      document.getElementById("publish-note").textContent = labels.publishNote;
+      document.getElementById("checklist-title").textContent = labels.checklistTitle;
+      document.getElementById("project-list").innerHTML = labels.projectItems.map((item) => `<li>${item}</li>`).join("");
+      document.getElementById("final-checklist").innerHTML = labels.finalChecklist.map((item) => `<li>${item}</li>`).join("");
+    }
+
+    function activate(lang) {
+      document.querySelectorAll(".tab").forEach((button) => {
+        const selected = button.dataset.lang === lang;
+        button.setAttribute("aria-selected", String(selected));
+      });
+      ["pt", "es", "en"].forEach((code) => {
+        document.getElementById(`panel-${code}`).hidden = code !== lang;
+      });
+      renderShared(lang);
+    }
+
+    ["pt", "es", "en"].forEach(renderSteps);
+    renderShared("pt");
+
+    document.querySelectorAll(".tab").forEach((button) => {
+      button.addEventListener("click", () => activate(button.dataset.lang));
+    });
+  </script>
+</body>
+</html>
+
