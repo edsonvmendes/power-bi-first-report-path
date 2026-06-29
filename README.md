@@ -67,6 +67,7 @@ Open the HTML report and look for rows marked as `broken`, `suspect`, or `to_val
 Update `docs/video-curation.csv` first. Keep metadata honest:
 
 - Use `to_validate` when views, likes, duration, channel, or publish year are not confirmed.
+- Use `start_timestamp` for the minute where the step topic starts. The public page should link directly to that timestamp when it is known.
 - Keep `is_primary=true` for the main recommendation shown on the page.
 - Keep fallback videos as `is_primary=false`.
 

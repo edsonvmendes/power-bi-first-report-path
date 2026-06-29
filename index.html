@@ -389,6 +389,8 @@
         projectCopy: "Ao final, crie um relatório simples no Power BI com:",
         publishNote: "Publique em um workspace de teste se você tiver acesso ao Power BI Service.",
         checklistTitle: "Checklist final",
+        startsAt: "Início do tema",
+        validateStart: "validar",
         projectItems: [
           "1 página executiva e 1 página de detalhe",
           "Filtros por ano, planta e produto",
@@ -417,6 +419,8 @@
         projectCopy: "Al final, crea un informe simple en Power BI con:",
         publishNote: "Publica en un workspace de prueba si tienes acceso a Power BI Service.",
         checklistTitle: "Checklist final",
+        startsAt: "Inicio del tema",
+        validateStart: "validar",
         projectItems: [
           "1 página ejecutiva y 1 página de detalle",
           "Filtros por año, planta y producto",
@@ -445,6 +449,8 @@
         projectCopy: "At the end, create a simple Power BI report with:",
         publishNote: "Publish to a test workspace if Power BI Service access is available.",
         checklistTitle: "Final checklist",
+        startsAt: "Topic starts at",
+        validateStart: "to validate",
         projectItems: [
           "1 executive page and 1 detail page",
           "Filters by year, plant, and product",
@@ -622,10 +628,17 @@
     ];
 
     function videoHref(url, timestamp) {
-      if (!timestamp || timestamp === "to_validate" || timestamp === "0:00") return url;
+      if (!timestamp || timestamp === "to_validate") return url;
       const parts = timestamp.split(":").map(Number);
-      const seconds = parts.length === 2 ? parts[0] * 60 + parts[1] : 0;
-      return seconds ? `${url}&t=${seconds}s` : url;
+      const seconds = parts.length === 3
+        ? parts[0] * 3600 + parts[1] * 60 + parts[2]
+        : parts.length === 2
+          ? parts[0] * 60 + parts[1]
+          : Number.NaN;
+      if (!Number.isFinite(seconds)) return url;
+      const cleanUrl = url.replace(/([?&])t=\d+s?&?/, "$1").replace(/[?&]$/, "");
+      const separator = cleanUrl.includes("?") ? "&" : "?";
+      return `${cleanUrl}${separator}t=${seconds}s`;
     }
 
     function renderSteps(lang) {
@@ -633,7 +646,7 @@
       const labels = copy[lang];
       container.innerHTML = steps.map((item) => {
         const video = item.videos[lang];
-        const timestamp = video[3] && video[3] !== "to_validate" ? `Start: ${video[3]}` : "Start: to validate";
+        const timestamp = video[3] && video[3] !== "to_validate" ? `${labels.startsAt}: ${video[3]}` : `${labels.startsAt}: ${labels.validateStart}`;
         const channel = video[1] && video[1] !== "to_validate" ? video[1] : "Channel: to validate";
         return `
           <article class="step">
