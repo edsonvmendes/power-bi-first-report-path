@@ -37,11 +37,15 @@ Evaluated, decided, closed. No clean *recent* English video that covers the **fu
 
 So step 6 EN is closed: keep Leila as primary, with the 2024 clip as an optional add-on. Completeness beat recency for a beginner step.
 
+## Deep-link timestamps
+
+- **Step 2 EN** `VaOhNqNtGGE` — import starts at `1:20`, so the URL uses `&t=80s`.
+- **Step 4 EN** `4ePNrdxWtY0` — data modeling/relationships starts at `2:18`, so the URL uses `&t=138s`. The hands-on relationship build is at `11:50` if you prefer the practical start.
+
 ## Timestamps still to confirm manually
 
-- **Step 2 PT** `7cUrsltJbEI` — the "Obter Dados" minute inside the course.
+- **Step 2 PT** `7cUrsltJbEI` — the "Obter Dados" minute inside the course. A proposed replacement in the latest external curation pointed to the wrong YouTube ID, so it was not applied.
 - **Step 7 ES** `YaiS6eWCFQQ` — the formatting/layout chapter inside the 2h course.
-- **Step 4 EN** `4ePNrdxWtY0` — set to `2:18` (concept). The hands-on relationship build is at `11:50` if you prefer the practical start.
 
 ## Notes carried over from v1
 
